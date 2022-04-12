@@ -1,30 +1,11 @@
-#ifndef PROTOTIPADO_H_
-#define PROTOTIPADO_H_
-
-/** muestro el menu
- *
- * @param opcion
- * @return opcion elgida por usuario
- */
-int mainMenu (int opcion);
+#ifndef CALCULOS_C_
+#define CALCULOS_C_
 
 /** pido ingresar los kilometros del vuelo
  *
  * @return kilometros del vuelo
  */
 float kilometrosDeVuelo();
-
-/** pido ingresar el valor del Aerolineas y lo valido
- *
- * @return el valor de la Aerolineas
- */
-float valorAerolineas();
-
-/** pido ingresar el valor del Latam y lo valido
- *
- * @return el valor de la Latam
- */
-float valorLatam();
 
 /** Opcion 3 - A ( descuento 10% )
  *
@@ -69,4 +50,5 @@ float difPrecio(float y , float z);
  */
 void datosForzados();
 
-#endif /* PROTOTIPADO_H_ */
+
+#endif /* CALCULOS_C_ */

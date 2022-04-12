@@ -10,7 +10,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "prototipado.h"
+#include "calculos.h"
+#include "menu.h"
 
 int main(void){
 	setbuf(stdout, NULL);
