@@ -37,14 +37,7 @@ int addPassengers(ePassenger vec[], int tam, eTypePassenger sectores [], int tam
  * @return Devuelve (0) si hay error - (1) si está bien
  */
 int removePassenger(ePassenger vec[], int tam, eTypePassenger sectores[], int tamSec);
-/**
- * initPassengers recorro el array hasta encontrar (isEmpty) y el puntero se pone en (-1) para marcar que esta ocupado.
- * @param vec esctrucutra array de pasajeros
- * @param tam longuitud del array
- * @param pIndex puntero del indice
- * @return Devuelve (0) si hay error - (1) si está bien
- */
-int initPassengers(ePassenger vec[], int tam, int* pIndex);
+int modificarEmpleado(ePassenger vec[], int tam, eTypePassenger sectores[], int tamSec);
 
 // Mostrar Passengers
 /**
@@ -76,10 +69,17 @@ int hardcodearPasajeros(ePassenger vec[], int tam, int cant, int* pId); // carga
  * @return Devuelve (0) si hay error - (1) si está bien
  */
 int findPassengerById(ePassenger vec[], int tam, int id, int* pIndex);
+/**
+ * initPassengers recorro el array hasta encontrar (isEmpty) y el puntero se pone en (-1) para marcar que esta ocupado.
+ * @param vec esctrucutra array de pasajeros
+ * @param tam longuitud del array
+ * @param pIndex puntero del indice
+ * @return Devuelve (0) si hay error - (1) si está bien
+ */
+int initPassengers(ePassenger vec[], int tam, int* pIndex);
 
-
-
-
+// sub menu
+int menuModificarPasajero();
 
 
 

@@ -142,7 +142,120 @@ int removePassenger(ePassenger vec[], int tam, eTypePassenger sectores[], int ta
     }
     return todoOk;
 }
+int modificarEmpleado(ePassenger vec[], int tam, eTypePassenger sectores[], int tamSec)
+{
+    int todoOk = 0;
+    int indice;
+    int id;
+    char salir = 'n';
+    char auxCad[100];
+    if(vec != NULL && tam > 0)
+    {
+    	listarPasajeros(vec, tam, sectores, tamSec);
+        printf("Ingrese id: ");
+        scanf("%d", &id);
+        if( findPassengerById(vec, tam, id, &indice))
+        {
+            if(indice == -1)
+            {
+                printf("No hay un empleado con id %d\n", id);
+            }
+            else
+            {
+            	printPassengers(vec[indice], sectores, tamSec);
+                do
+                {
+                    switch(menuModificarPasajero()){
+                    case 1:
+                        printf("|Ingrese el nombre del pasajero: ");
+                        fflush(stdin);
+                        gets(auxCad);
 
+                        while(strlen(auxCad) >= 50)
+                        {
+                            printf("|Nombre demasiado largo. Reingrese nombre: ");
+                            fflush(stdin);
+                            gets(auxCad);
+                        }
+
+                        strcpy(vec[indice].name, auxCad);
+                        printf("Se ha modificado el nombre\n");
+                        break;
+                    case 2:
+                    	printf("|Ingrese el apellido del pasajero: ");
+                    	fflush(stdin);
+                    	gets(auxCad);
+
+                    	while(strlen(auxCad) >= 50)
+                    	{
+                    		printf("|Apellido demasiado largo. Reingrese apellido: ");
+                    		fflush(stdin);
+                    		gets(auxCad);
+                    	}
+
+                    	strcpy(vec[indice].lastName, auxCad);
+                        printf("Se ha modificado el Apellido\n");
+                        break;
+
+                    case 3:
+                        printf("|Ingrese nuevo precio: ");
+                        fflush(stdin);
+                        scanf("%f", &vec[indice].price);
+
+                        while( vec[indice].price <= 9000 || vec[indice].price >= 90000)
+                        {
+                        	printf("|Precio invalido. Reingrese precio: ");
+                        	fflush(stdin);
+                        	scanf("%f", &vec[indice].price);
+                        }
+
+                        printf("Se ha modificado el precio\n");
+                        break;
+                    case 4:
+                    	printf("|Ingrese el fly code: ");
+                    	fflush(stdin);
+                    	gets(auxCad);
+
+                    	while(strlen(auxCad) >= 11)
+                    	{
+                    		printf("|fly code demasiado largo. Reingrese fly code: ");
+                    		fflush(stdin);
+                    		gets(auxCad);
+                    	}
+
+                        strcpy(vec[indice].flycode, auxCad);
+                        printf("Se ha modificado el codigo de vuelo\n");
+                        break;
+                    case 5:
+                        listarSectores(sectores, tamSec);
+
+                        printf("|Ingrese Type passenger: ");
+                        fflush(stdin);
+                        scanf("%d", &vec[indice].typePassenger);
+
+                        while( (vec[indice].typePassenger) < 1 || (vec[indice].typePassenger) > 4){
+                        	printf("type passenger invalido. Reingrese type passenger: ");
+                        	scanf("%d", &vec[indice].typePassenger);
+                        }
+                        printf("Se ha modificado el tipo de pasajero\n");
+                        break;
+                    case 6:
+                        salir = 's';
+                        break;
+                    }
+                    system("pause");
+                }
+                while(salir != 's');
+            }
+        }
+        else
+        {
+            printf("Ocurrio un problema al buscar empleado\n");
+        }
+        todoOk = 1;
+    }
+    return todoOk;
+}
 int initPassengers(ePassenger vec[], int tam, int* pIndex)
 {
     int todoOk = 0;
@@ -280,3 +393,17 @@ int hardcodearPasajeros(ePassenger vec[], int tam, int cant, int* pId)
     return todoOk;
 }
 
+int menuModificarPasajero()
+{
+    int opcion;
+    printf("\n     *** Campos a modificar ***\n");
+    printf("1) Name\n");
+    printf("2) Last Name\n");
+    printf("3) Price\n");
+    printf("4) Fly code\n");
+    printf("5) Type de Passenger\n");
+    printf("6) Salir\n");
+    printf("Ingrese opcion: ");
+    scanf("%d", &opcion);
+    return opcion;
+}

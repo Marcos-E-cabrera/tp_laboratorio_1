@@ -61,7 +61,11 @@ int main_Menu (int opcion){
 		break;
 		case 2:
 			if( (flagOne == 1 && flagTwo == 0)){
-				flagTwo = 1;
+	            if( modificarEmpleado(lista, TAM, sectores, TAMS) == 0)
+	            {
+	            	flagTwo = 1;
+	                printf("Problema al hacer la modificacion de empleado\n");
+	            }
 			}else{
 				system("cls");
 				printf(" | Error, Introduzca una opcion valida\n");
