@@ -3,15 +3,17 @@
 #include <string.h>
 #include "typePassenger.h"
 
-int listarSectores(eTypePassenger sectores [], int tamSec){
+int listarSectores(eTypePassenger sectores [], int tamSectores){
 int todoOk = 0;
 
-    if(sectores != NULL && tamSec > 0){
+    if(sectores != NULL && tamSectores > 0){
         system("cls");
-        printf("\n     *** class list ***\n\n");
-        printf("  Type    |     Descripcion\n");
-        printf("------------------------------\n");
-        for(int i=0; i < tamSec; i++){
+        printf(" ______________________________\n");
+        printf("|     *** CLASS LIST ***       |\n");
+        printf("|------------------------------|\n");
+        printf("|  TYPE    |     Descripcion   |\n");
+        printf("-------------------------------\n");
+        for(int i=0; i < tamSectores; i++){
             printf("   %d    %20s\n", sectores[i].typePassenger, sectores[i].descripcion);
         }
         printf("\n\n");
