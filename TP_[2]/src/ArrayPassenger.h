@@ -22,17 +22,45 @@ typedef struct
 int initPassengers(ePassenger list[], int len);
 ///2.2
 int addPassenger(ePassenger list[], int len, char name[], char lastName[], float price, char flycode[], eTypePassenger sector[], int tamSector, eStatusFlight status[],int tamStatus, int* pId);
+int findPassengerByIdFree(ePassenger list[], int len, int *id);
 ///2.3
-int findPassengerById(ePassenger list[], int len, int *id);
+int findPassengerById(ePassenger list[], int len, int id, int* pIndex);
 ///2.4
-int removePassenger(ePassenger list[], int len, int id);
+int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
 ///2.5
 int sortPassengers(ePassenger list[], int len, int order);
 ///2.6
-//int printPassenger(ePassenger list, eTypePassenger sector[], eStatusFlight status[], int tamSector, int tamStatus);
 int printPassenger(ePassenger l, eTypePassenger sector[], eStatusFlight status[], int len);
-int cargarDescripcionSector(eTypePassenger sector[], int len, int typePassenger, char descripcion[]);
-//int cargarDescripcionStatus(eStatusFlight status[], int len, int statusFlight, char descripcion[]);
 int listarPasajeros(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
 ///2.7
-int sortPassengers(ePassenger list[], int len, int order);
+int modifyPassenger(ePassenger list[], int len, eTypePassenger sectores[], eStatusFlight status[], int tamSector, int tamStatus);
+int menuModifyPassenger();
+///2-8
+/**
+ * hardcodea pasajeros
+ * @param list ePassenger
+ * @param len longuitud de array
+ * @param cant cantidad de pasajeros
+ * @param id puntero de id.
+ * @return
+ */
+int hardcodearPasajeros(ePassenger list[], int len, int cant, int* id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

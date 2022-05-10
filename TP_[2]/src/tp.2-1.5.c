@@ -16,7 +16,7 @@
 #include "typePassenger.h"
 #include "statusFlight.h"
 
-#define ELEMENTS 5 /// TAM
+#define ELEMENTS 6 /// TAM
 #define TAM_SEC 4 /// TAMS
 #define TAM_STS 3
 
@@ -26,7 +26,7 @@ int main(void){
 
 	setbuf(stdout, NULL);
 	char letra;
-	int flagOne = 0;
+	int flagOne = 1;
 	int flagTwo = 0;
 	int flagthree = 0;
 	int flagFour = 0;
@@ -52,7 +52,7 @@ int main(void){
 
 	initPassengers(lista, ELEMENTS);
 
-	//hardcodearPasajeros(lista, ELEMENTS, 5, &proximoId);
+	hardcodearPasajeros(lista, ELEMENTS, 5, &proximoId);
 
 	do{
 		system("cls");
@@ -61,7 +61,8 @@ int main(void){
 		printf(" |  2) Modificar              |\n");
 		printf(" |  3) Baja                  |\n");
 		printf(" |  4) Informar              |\n");
-		printf(" |  5) Salir                 |\n");
+		printf(" |  5) Alta Forzada de pasajeros            |\n");
+		printf(" |  6) Salir                 |\n");
 
 		do{ /* Filtro de la opción elegida por el usuario */
 			printf("\n | Por favor no ingrese letras, solo numeros");
@@ -84,24 +85,23 @@ int main(void){
 		break;
 		case 2:
 			if( (flagOne == 1 && flagTwo == 0)){
-//	            if( modificarEmpleado(lista, ELEMENTS, sectores, TAM_SECTORES) == 0)
-//	            {
-//	            	flagTwo = 1;
-//	                printf("Problema al hacer la modificacion de empleado\n");
-//	            }
+	            if( modifyPassenger(lista, ELEMENTS, sectores, status, TAM_SEC, TAM_STS) == 0)
+	            {
+	            	flagTwo = 1;
+	                printf("Problema al hacer la modificacion de empleado\n");
+	            }
 			}else{
 				system("cls");
 				printf(" | Error, Introduzca una opcion valida\n");
-				printf(" | Introduzca alta empleado, Para poder modificar\n");
 			}
 		break;
 		case 3:
 			if (flagOne == 1 && flagTwo == 1  && flagthree == 0){
-//	    		if( removePassenger(lista, ELEMENTS, sectores, TAM_SECTORES) == 0)
-//	    		{
-//	    			flagthree = 1;
-//	    			printf("Problema al hacer la baja de empleado\n");
-//	    		}
+	    		if(removePassenger(lista, ELEMENTS, sectores, status) == 0)
+	    		{
+	    			flagthree = 1;
+	    			printf("Problema al hacer la baja de pasajero\n");
+	    		}
 			}else{
 				system("cls");
 				printf(" | Error, Introduzca una opcion valida\n");
