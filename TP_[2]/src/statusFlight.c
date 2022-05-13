@@ -9,15 +9,15 @@ int todoOk = 0;
 
     if(status != NULL && tamStatus > 0){
         system("cls");
-        printf(" ______________________________\n");
-        printf("|   *** STATUS FLIGHT LIST *** |\n");
-        printf("|------------------------------|\n");
-        printf("|   ID    |     Descripcion   |\n");
-        printf("-------------------------------\n");
+        printf("\n  ______________________________\n");
+        printf(" |  *** STATUS FLIGHT LIST ***  |\n");
+        printf(" |------------------------------|\n");
+        printf(" |  ID  |      Descripcion      |\n");
+        printf(" |------------------------------|\n");
         for(int i=0; i < tamStatus; i++){
-            printf("   %d    %20s\n", status[i].statusFlight, status[i].descripcion);
+        printf(" |   %d  |      %-12s     |\n", status[i].statusFlight, status[i].descripcion);
         }
-        printf("\n\n");
+        printf(" |------------------------------|\n\n");
         todoOk = 1;
     }
  return todoOk;

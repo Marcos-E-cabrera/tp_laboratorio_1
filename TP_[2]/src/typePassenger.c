@@ -8,15 +8,15 @@ int todoOk = 0;
 
     if(sectores != NULL && tamSectores > 0){
         system("cls");
-        printf(" ______________________________\n");
-        printf("|     *** CLASS LIST ***       |\n");
-        printf("|------------------------------|\n");
-        printf("|  TYPE    |     Descripcion   |\n");
-        printf("-------------------------------\n");
+        printf("\n  ______________________________\n");
+        printf(" |      *** CLASS LIST ***      |\n");
+        printf(" |------------------------------|\n");
+        printf(" |  TYPE  |     Descripcion     |\n");
+        printf(" |------------------------------|\n");
         for(int i=0; i < tamSectores; i++){
-            printf("   %d    %20s\n", sectores[i].typePassenger, sectores[i].descripcion);
+            printf(" |   %d    |   %-15s   |\n", sectores[i].typePassenger, sectores[i].descripcion);
         }
-        printf("\n\n");
+        printf(" |------------------------------|\n\n");
         todoOk = 1;
     }
  return todoOk;

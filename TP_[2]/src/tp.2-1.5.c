@@ -16,21 +16,16 @@
 #include "typePassenger.h"
 #include "statusFlight.h"
 
-#define ELEMENTS 6 /// TAM
-#define TAM_SEC 4 /// TAMS
+#define ELEMENTS 2000
+#define TAM_SEC 4
 #define TAM_STS 3
 
 int main(void){
 	setbuf(stdout, NULL);
 	int opcion;
-
-	setbuf(stdout, NULL);
 	char letra;
-	int flagOne = 1;
-	int flagTwo = 0;
-	int flagthree = 0;
-	int flagFour = 0;
 
+	int flag = 4;
 	int proximoId = 770;
 
 	ePassenger lista[ELEMENTS];
@@ -52,43 +47,51 @@ int main(void){
 
 	initPassengers(lista, ELEMENTS);
 
-	hardcodearPasajeros(lista, ELEMENTS, 5, &proximoId);
+	hardcodearPasajeros(lista, ELEMENTS, 10, &proximoId);
 
 	do{
 		system("cls");
-		printf("\n | * MENU DE AEROLINEAS  *   |\n");
-		printf(" |  1) Alta                  |\n");
-		printf(" |  2) Modificar              |\n");
-		printf(" |  3) Baja                  |\n");
-		printf(" |  4) Informar              |\n");
-		printf(" |  5) Alta Forzada de pasajeros            |\n");
-		printf(" |  6) Salir                 |\n");
+		printf("\n  _______________________________\n");
+		printf(" |     * MENU DE AEROLINEAS *    |\n");
+		printf(" |_______________________________|\n");
+		printf(" | 1  | ALTA AEROLINEA           |\n");
+		printf(" | 2  | MODIFICAR AEROLINEA      |\n");
+		printf(" | 3  | BAJA AEROLINEA           |\n");
+		printf(" | 4  | INFORMAR LISTA :         |\n");
+		printf(" | 5  | ALTA FORZADA             |\n");
+		printf(" | 6  | Salir                    |\n");
+		printf(" |-------------------------------|\n");
 
 		do{ /* Filtro de la opción elegida por el usuario */
-			printf("\n | Por favor no ingrese letras, solo numeros");
+			printf("  ___________________________________________");
+			printf("\n | Por favor no ingrese letras, solo numeros |");
+			printf("\n  __________________________");
 			printf("\n | Introduzca una opcion: ");
 			fflush(stdin);
 			scanf("%d", &opcion);
 			scanf("%c", &letra);
-		} while ((isalpha(letra))||(opcion < 1 || opcion >5));
+
+		} while ((isalpha(letra)) || (opcion < 1 || opcion >5));
 
 		system("cls");
 
 		switch ( opcion ){
 		case 1:
     		if(addPassenger(lista, ELEMENTS, passenger.name, passenger.lastName, passenger.price,  passenger.flycode, sectores, TAM_SEC, status,TAM_STS, &proximoId)){
-    			flagOne = 1;
-    			printf("Pasajero agregado con exito\n");
+    			flag = 2;
+    			printf(" | * Pasajero agregado con exito * |\n");
     		}else{
-    			printf("	Problema al hacer el alta de Pasajero\n");
+    			printf(" | * Problema al hacer el alta de Pasajero * |\n");
     		}
 		break;
 		case 2:
-			if( (flagOne == 1 && flagTwo == 0)){
-	            if( modifyPassenger(lista, ELEMENTS, sectores, status, TAM_SEC, TAM_STS) == 0)
+			if( flag == 2){
+	            if( modifyPassenger(lista, ELEMENTS, sectores, status, TAM_SEC, TAM_STS))
 	            {
-	            	flagTwo = 1;
-	                printf("Problema al hacer la modificacion de empleado\n");
+	            	flag = 3;
+	    			printf(" | * Pasajero modificado con exito * |\n");
+	    		}else{
+	    			printf(" | * Problema al modificar Pasajero * |\n");
 	            }
 			}else{
 				system("cls");
@@ -96,11 +99,13 @@ int main(void){
 			}
 		break;
 		case 3:
-			if (flagOne == 1 && flagTwo == 1  && flagthree == 0){
-	    		if(removePassenger(lista, ELEMENTS, sectores, status) == 0)
+			if (flag == 3){
+	    		if(removePassenger(lista, ELEMENTS, sectores, status))
 	    		{
-	    			flagthree = 1;
-	    			printf("Problema al hacer la baja de pasajero\n");
+	    			flag = 4;
+	    			printf(" | * Pasajero eliminado con exito * |\n");
+	    		}else{
+	    			printf(" | * Problema al hacer la baja de pasajero * |\n");
 	    		}
 			}else{
 				system("cls");
@@ -108,10 +113,9 @@ int main(void){
 			}
 		break;
 		case 4:
-			if (flagOne == 1 && flagTwo == 1  && flagthree == 0 && flagFour == 0){
-//				if( removePassenger(lista, ELEMENTS, sectores, TAM_SECTORES) == 0){
-//					flagFour = 1;
-//				}
+			if (flag == 4 )
+			{
+				subMenuInformes(lista, ELEMENTS, sectores, TAM_SEC, status, TAM_STS);
 			}else{
 				system("cls");
 				printf(" | Error, Introduzca una opcion valida\n");

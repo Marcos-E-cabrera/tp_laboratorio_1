@@ -1,6 +1,12 @@
 #ifndef ARRAYPASSENGER_H_
 #define ARRAYPASSENGER_H_
 
+#define APELLIDO 0
+#define PASAJERO 1
+
+#define ASC 1
+#define DESC 0
+
 #include "typePassenger.h"
 #include "statusFlight.h"
 
@@ -28,7 +34,11 @@ int findPassengerById(ePassenger list[], int len, int id, int* pIndex);
 ///2.4
 int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
 ///2.5
-int sortPassengers(ePassenger list[], int len, int order);
+int sortPassengers(ePassenger* list, int len,int order);
+int sortPassengersByCode(ePassenger* list, int len,eStatusFlight* status, int order);
+int listarPasajerosByStatus(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
+int listadoDeCuentas(ePassenger list[], int len, float* acumPrecio, int* cantPassengers, int* contMaximo,float* promedio);
+int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamSector, eStatusFlight status[], int tamStatus);
 ///2.6
 int printPassenger(ePassenger l, eTypePassenger sector[], eStatusFlight status[], int len);
 int listarPasajeros(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
