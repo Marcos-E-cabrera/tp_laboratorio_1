@@ -4,7 +4,7 @@
 #include "typePassenger.h"
 
 int listarSectores(eTypePassenger sectores [], int tamSectores){
-int todoOk = 0;
+int todoOk = -1;
 
     if(sectores != NULL && tamSectores > 0){
         system("cls");
@@ -23,7 +23,7 @@ int todoOk = 0;
 }
 
 int cargarDescripcionSector(eTypePassenger sectores[], int tam, int typePassenger, char descripcion[]){
-int todoOk = 0;
+int todoOk = -1;
 int indice;
 
 	buscarSector(sectores, tam, typePassenger, &indice);
@@ -36,7 +36,7 @@ int indice;
 }
 
 int buscarSector(eTypePassenger sectores[], int tam, int typePassenger, int* pIndice){
-	int todoOk = 0;
+	int todoOk = -1;
 	if(sectores != NULL && tam > 0 && pIndice != NULL){
 		*pIndice = 1;
 		for(int i=0; i < tam; i++){

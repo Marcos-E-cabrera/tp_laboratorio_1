@@ -5,7 +5,7 @@
 #include "statusFlight.h"
 
 int listarstatus(eStatusFlight status[], int tamStatus){
-int todoOk = 0;
+int todoOk = -1;
 
     if(status != NULL && tamStatus > 0){
         system("cls");
@@ -24,7 +24,7 @@ int todoOk = 0;
 }
 
 int cargarDescripcionStatus(eStatusFlight status[], int tam, int statusFlight, char descripcion[]){
-int todoOk = 0;
+int todoOk = -1;
 int indice;
 
 	buscarStatus(status, tam, statusFlight, &indice);
@@ -38,7 +38,7 @@ int indice;
 
 int buscarStatus(eStatusFlight status[], int tam, int statusFlight, int* pIndice)
 {
-	int todoOk = 0;
+	int todoOk = -1;
 	if(status != NULL && tam > 0 && pIndice != NULL){
 		*pIndice = 1;
 		for(int i=0; i < tam; i++){

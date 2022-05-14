@@ -18,14 +18,14 @@
 */
 int initPassengers(ePassenger list[], int len) /// LISTO
 {
-    int todoOk = 0;
+    int todoOk = -1;
     if(list != NULL && len > 0)
     {
         for(int i=0; i < len; i++)
         {
             list[i].isEmpty = 1;
         }
-        todoOk = 1;
+        todoOk = 0;
     }
     return todoOk;
 }
@@ -45,7 +45,7 @@ int initPassengers(ePassenger list[], int len) /// LISTO
 */
 int addPassenger(ePassenger list[], int len, char name[], char lastName[], float price, char flycode[], eTypePassenger sector[], int tamSector, eStatusFlight status[],int tamStatus, int* pId)
 {
-	int todoOk = 0;
+	int todoOk = -1;
 	int indice;
 	char auxName[51];
 	char auxLastName[51];
@@ -138,7 +138,7 @@ int addPassenger(ePassenger list[], int len, char name[], char lastName[], float
 				newPassenger.id = *pId;
 				*pId = *pId + 1;
 				list[indice] = newPassenger;
-				todoOk = 1;
+				todoOk = 0;
 			}
 		}
 		else
@@ -185,7 +185,7 @@ int findPassengerByIdFree(ePassenger list[], int len, int *pIndex)
 */
 int findPassengerById(ePassenger list[], int len, int id, int* pIndex) /// 1 - error , 0 - ocupado
 {
-	int indice = 0;
+	int indice = -1;
     if(list != NULL && len > 0 && pIndex != NULL && id > 0)
     {
         *pIndex = -1;
@@ -213,7 +213,7 @@ int findPassengerById(ePassenger list[], int len, int id, int* pIndex) /// 1 - e
 */
 int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[])
 {
-    int todoOk = 0;
+    int todoOk = -1;
     int indice;
     int id;
     char confirma;
@@ -241,8 +241,8 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
                 else
                 {
                     list[indice].isEmpty = 1;
-                    printf(" | * Baja realizada con el exito!!! *|\n");
-                    todoOk = 1;
+                    printf(" | * Baja realizada con exito!!! *|\n");
+                    todoOk = 0;
                 }
             }
         }
@@ -250,7 +250,7 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
         {
             printf(" | * Ocurrio un problema al buscar pasajero *|\n");
         }
-        todoOk = 1;
+        todoOk = 0;
     }
     return todoOk;
 }
@@ -266,7 +266,7 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
 */
 int sortPassengers(ePassenger* list, int len,int order)
 {
-    int todoOk = 0;
+    int todoOk = -1;
     ePassenger auxPassenger;
     if(list != NULL && len > 0  && order >= 0 && order <= 1)
     {
@@ -286,7 +286,7 @@ int sortPassengers(ePassenger* list, int len,int order)
                 }
             }
         }
-        todoOk = 1;
+        todoOk = 0;
     }
     return todoOk;
 }
@@ -301,7 +301,7 @@ int sortPassengers(ePassenger* list, int len,int order)
 */
 int sortPassengersByCode(ePassenger* list, int len, eStatusFlight* status, int order)
 {
-    int todoOk = 0;
+    int todoOk = -1;
     ePassenger auxPassenger;
     if(list != NULL && len > 0)
     {
@@ -320,14 +320,14 @@ int sortPassengersByCode(ePassenger* list, int len, eStatusFlight* status, int o
             	}
             }
         }
-        todoOk = 1;
+        todoOk = 0;
     }
     return todoOk;
 }
 
 int listarPasajerosByStatus(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[])
 {
-    int todoOk = 0;
+    int todoOk = -1;
     int flag = 0;
     if(list != NULL && len > 0)
     {
@@ -352,14 +352,14 @@ int listarPasajerosByStatus(ePassenger list[], int len, eTypePassenger sector[],
         }
         printf("\n\n");
 
-        todoOk = 1;
+        todoOk = 0;
     }
     return todoOk;
 }
 
 int listadoDeCuentas(ePassenger list[], int len, float* acumPrecio, int* cantPassengers, int* contMax,float* promedio)
 {
-	int todoOk =0;
+	int todoOk = -1;
 	int cantPassengers2 = 0;
 	float acumPrecio2 = 0;
 	float promedio2;
@@ -391,14 +391,14 @@ int listadoDeCuentas(ePassenger list[], int len, float* acumPrecio, int* cantPas
 		*contMax = contMax2;
 		*promedio = promedio2;
 
-		todoOk =0;
+		todoOk =1;
 	}
 
 	return todoOk;
 }
 
 int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamSector, eStatusFlight status[], int tamStatus){
-	int todoOK = 0;
+	int todoOK = -1;
 	int opcion;
 	int orden;
 	char letra;
@@ -483,6 +483,7 @@ int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamS
 		sortPassengersByCode(list, len, status, orden );
 		listarPasajerosByStatus(list, len, sector, status);
 		break;
+		todoOK = 1;
 	}
 	return todoOK;
 }
@@ -497,7 +498,7 @@ int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamS
 */
 int printPassenger(ePassenger l, eTypePassenger sector[], eStatusFlight status[], int len)
 {
-    int todoOk = 0;
+    int todoOk = -1;
     char descSector[20];
     char descStatus[20];
 
@@ -520,7 +521,7 @@ int printPassenger(ePassenger l, eTypePassenger sector[], eStatusFlight status[]
 
 int listarPasajeros(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[])
 {
-    int todoOk = 0;
+    int todoOk = -1;
     int flag = 0;
     if(list != NULL && len > 0)
     {
@@ -553,7 +554,7 @@ int listarPasajeros(ePassenger list[], int len, eTypePassenger sector[], eStatus
 ///2.7
 int modifyPassenger(ePassenger list[], int len, eTypePassenger sectores[], eStatusFlight status[], int tamSector, int tamStatus)
 {
-	int todoOk = 0;
+	int todoOk = -1;
 	int indice;
 	int id;
 	char salir = 'n';
@@ -712,7 +713,7 @@ int menuModifyPassenger()
 /// 2-8
 int hardcodearPasajeros(ePassenger list[], int len, int cant, int* id)
 {
-    int todoOk = 0;
+    int todoOk = -1;
     ePassenger passenger[]=
     {
     	{0, "Juan Lorenzo", "Dellapa", 18230, "BHI9176",4,3,0},

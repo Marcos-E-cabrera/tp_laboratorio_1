@@ -1,9 +1,6 @@
 #ifndef ARRAYPASSENGER_H_
 #define ARRAYPASSENGER_H_
 
-#define APELLIDO 0
-#define PASAJERO 1
-
 #define ASC 1
 #define DESC 0
 

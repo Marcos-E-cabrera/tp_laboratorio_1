@@ -25,7 +25,7 @@ int main(void){
 	int opcion;
 	char letra;
 
-	int flag = 4;
+	int flag = 0;
 	int proximoId = 770;
 
 	ePassenger lista[ELEMENTS];
@@ -77,18 +77,18 @@ int main(void){
 
 		switch ( opcion ){
 		case 1:
-    		if(addPassenger(lista, ELEMENTS, passenger.name, passenger.lastName, passenger.price,  passenger.flycode, sectores, TAM_SEC, status,TAM_STS, &proximoId)){
-    			flag = 2;
+    		if(addPassenger(lista, ELEMENTS, passenger.name, passenger.lastName, passenger.price,  passenger.flycode, sectores, TAM_SEC, status,TAM_STS, &proximoId) != -1){
+    			flag = 1;
     			printf(" | * Pasajero agregado con exito * |\n");
     		}else{
     			printf(" | * Problema al hacer el alta de Pasajero * |\n");
     		}
 		break;
 		case 2:
-			if( flag == 2){
-	            if( modifyPassenger(lista, ELEMENTS, sectores, status, TAM_SEC, TAM_STS))
+			if( flag == 1){
+	            if( modifyPassenger(lista, ELEMENTS, sectores, status, TAM_SEC, TAM_STS) != -1 )
 	            {
-	            	flag = 3;
+	            	flag = 2;
 	    			printf(" | * Pasajero modificado con exito * |\n");
 	    		}else{
 	    			printf(" | * Problema al modificar Pasajero * |\n");
@@ -99,10 +99,10 @@ int main(void){
 			}
 		break;
 		case 3:
-			if (flag == 3){
-	    		if(removePassenger(lista, ELEMENTS, sectores, status))
+			if (flag == 2){
+	    		if(removePassenger(lista, ELEMENTS, sectores, status) != -1 )
 	    		{
-	    			flag = 4;
+	    			flag = 3;
 	    			printf(" | * Pasajero eliminado con exito * |\n");
 	    		}else{
 	    			printf(" | * Problema al hacer la baja de pasajero * |\n");
@@ -113,7 +113,7 @@ int main(void){
 			}
 		break;
 		case 4:
-			if (flag == 4 )
+			if (flag == 3 )
 			{
 				subMenuInformes(lista, ELEMENTS, sectores, TAM_SEC, status, TAM_STS);
 			}else{
