@@ -3,53 +3,19 @@
 #include <ctype.h>
 #include "calculos.h"
 #include "menu.h"
+#include "utn.h"
 
 /* Valor del vuelo de Aerolineas */
 float valorAerolineas(){
-	system("cls");
 	float y; //Aerolineas
-	char letra;
-	do{
-		printf(" | Ingrese Precio vuelo Aerolíneas : ");
-		fflush(stdin);
-		scanf("%f", &y);
-		scanf("%c", &letra);
-
-		if(isalpha(letra)){
-			system("cls");
-			printf(" | Error, solo numeros\n");
-		}
-
-		if(y < 1){
-			system("cls");
-			printf(" | Error, en el precio\n");
-		}
-
-	}while((isalpha(letra)) || (y < 1));
+	utn_getFloat(&y,"\n |> Ingrese Precio vuelo Aerolineas: ", " |> Error, Reingrese Valor de Aerlineas", 1.00,999999.00,2);
 	return y;
 }
 
 /* Valor del vuelo de Aerolineas */
 float valorLatam(){
-	system("cls");
 	float z; //Latam
-	char letra;
-	do{
-		printf(" | Ingrese el valor de Latam : ");
-		fflush(stdin);
-		scanf("%f", &z);
-		scanf("%c", &letra);
-
-		if(isalpha(letra)){
-			system("cls");
-			printf(" | Error, solo numeros\n");
-		}
-
-		if(z < 1){
-			system("cls");
-			printf(" | Error, en el precio\n");
-		}
-	}while((isalpha(letra)) || (z < 1));
+	utn_getFloat(&z,"\n |> Ingrese Precio vuelo Latam: ", " |> Error, Reingrese Valor de Latam", 1.00,999999.00,2);
 	return z;
 }
 

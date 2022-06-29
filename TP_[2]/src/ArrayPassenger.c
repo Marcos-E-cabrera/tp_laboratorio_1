@@ -3,17 +3,18 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "utn.h"
 #include "ArrayPassenger.h"
 #include "typePassenger.h"
 #include "statusFlight.h"
 
 /// 2.1
 /**
-* Para indicar que todas las posiciones del array están vacías,
-* esta función pone la bandera (isEmpty) en TRUE en todas posición del array
+* Para indicar que todas las posiciones del array estï¿½n vacï¿½as,
+* esta funciï¿½n pone la bandera (isEmpty) en TRUE en todas posiciï¿½n del array
 * \param list Pasajero* Puntero al array de pasajeros
 * \param len int Longitud del array
-* \return int Devuelve (-1) si Error [Longitud inválida o puntero NULL] - (0) si Ok.
+* \return int Devuelve (-1) si Error [Longitud invï¿½lida o puntero NULL] - (0) si Ok.
 *
 */
 int initPassengers(ePassenger list[], int len) /// LISTO
@@ -32,7 +33,7 @@ int initPassengers(ePassenger list[], int len) /// LISTO
 
 /// 2.2
 /**
-* añadir en una lista de pasajeros existente los valores recibidos como parámetros en la primera posición vacía
+* aï¿½adir en una lista de pasajeros existente los valores recibidos como parï¿½metros en la primera posiciï¿½n vacï¿½a
 * \param list passenger*
 * \param len int
 * \param id int
@@ -41,15 +42,12 @@ int initPassengers(ePassenger list[], int len) /// LISTO
 * \param price float
 * \param typePassenger int
 * \param flycode[] char
-* \return int Devuelve (-1) si Error [Longitud no válida o puntero NULL o sin espacio libre] - (0) si está bien
+* \return int Devuelve (-1) si Error [Longitud no vï¿½lida o puntero NULL o sin espacio libre] - (0) si estï¿½ bien
 */
 int addPassenger(ePassenger list[], int len, char name[], char lastName[], float price, char flycode[], eTypePassenger sector[], int tamSector, eStatusFlight status[],int tamStatus, int* pId)
 {
 	int todoOk = -1;
 	int indice;
-	char auxName[51];
-	char auxLastName[51];
-	char auxflycode[51];
 	ePassenger newPassenger;
 
 	if(list != NULL && len > 0 && pId != NULL && name!=NULL && lastName!=NULL  && flycode!=NULL)
@@ -62,76 +60,35 @@ int addPassenger(ePassenger list[], int len, char name[], char lastName[], float
 	        }
 			else
 			{
-				printf(" |Ingrese el nombre del pasajero: ");
 				fflush(stdin);
-				gets(auxName);
+				utn_getNombre(name, 50, "\n |> Ingrese Nombre del pasajero: ", "\n |> Error, Reingrese Nombre", 10);
+				strcpy(newPassenger.name,name);
 
-				while(strlen(auxName) >= 50)
-				{
-					printf(" |Nombre demasiado largo. Reingrese nombre: ");
-					fflush(stdin);
-					gets(auxName);
-				}
+				utn_getNombre(lastName, 50, " |> Ingrese Apellido del pasajero: ", "\n |> Error, Reingrese Apellido\n", 10);
+				strcpy(newPassenger.lastName,lastName);
 
-				strcpy(newPassenger.name, auxName);
+				utn_getFloat(&price, " |> Ingrese precio: ", "\n |> Error, Reingrese Precio\n", 1.00, 999999.99, 10);
+				newPassenger.price = price;
 
-				printf(" |Ingrese el apellido del pasajero: ");
-				fflush(stdin);
-				gets(auxLastName);
+				utn_getCode(flycode, " |> Ingrese el fly code: ", "\n |> Error, Reingrese Fly Code\n", 10, 10);
+				strcpy(newPassenger.flycode,flycode);
 
-				while(strlen(auxLastName) >= 50)
-				{
-					printf(" |Apellido demasiado largo. Reingrese apellido: ");
-					fflush(stdin);
-					gets(auxLastName);
-				}
-
-				strcpy(newPassenger.lastName, auxLastName);
-
-				printf(" |Ingrese precio: ");
-				fflush(stdin);
-				scanf("%f", &newPassenger.price);
-
-				while( newPassenger.price <= 9000 || newPassenger.price >= 90000)
-				{
-					printf(" |Precio invalido. Reingrese precio: ");
-					fflush(stdin);
-					scanf("%f", &newPassenger.price);
-				}
-
-				printf(" |Ingrese el fly code: ");
-				fflush(stdin);
-				gets(auxflycode);
-
-				while(strlen(auxflycode) >= 11)
-				{
-					printf(" |fly code demasiado largo. Reingrese fly code: ");
-					fflush(stdin);
-					gets(auxflycode);
-				}
-
-				strcpy(newPassenger.flycode, auxflycode);
-
-				listarSectores(sector, tamSector);
-
-				printf(" |Ingrese Type passenger: ");
-				fflush(stdin);
+				listarType(sector, tamSector);
+				printf(" | Ingrese Type passenger: ");
 				scanf("%d", &newPassenger.typePassenger);
-
-				while( (newPassenger.typePassenger) < 1 || (newPassenger.typePassenger) > 4){
-					printf("type passenger invalido. Reingrese type passenger: ");
-					scanf("%d", &newPassenger.typePassenger);
+				while( !validarType(sector, tamSector, newPassenger.typePassenger))
+				{
+					printf(" | Error, Reingrese ID: ");
+					scanf("%d",&newPassenger.typePassenger);
 				}
 
 				listarstatus(status, tamStatus);
-
-				printf(" |Ingrese Status Flight: ");
-				fflush(stdin);
+				printf(" | Ingrese Status Flight: ");
 				scanf("%d", &newPassenger.statusFlight);
-
-				while( (newPassenger.statusFlight) < 1 || (newPassenger.statusFlight) > 3){
-					printf(" Status Flight invalido. Reingrese Status Flight: ");
-					scanf("%d", &newPassenger.statusFlight);
+				while( !validarStatus(status, tamStatus, newPassenger.statusFlight))
+				{
+					printf(" | Error, Reingrese ID: ");
+					scanf("%d",&newPassenger.statusFlight);
 				}
 
 				newPassenger.isEmpty = 0;
@@ -150,11 +107,11 @@ int addPassenger(ePassenger list[], int len, char name[], char lastName[], float
 }
 
 /**
-* Buscar un espacio vacio por Id y devuelve la posición del índice en el array.
+* Buscar un espacio vacio por Id y devuelve la posiciï¿½n del ï¿½ndice en el array.
 * \param list Pasajero*
 * \param len int
 * \param id int
-* \return Devuelve la posición del índice del pasajero o (1) si [Longitud inválida o puntero NULL recibido o pasajero no encontrado]
+* \return Devuelve la posiciï¿½n del ï¿½ndice del pasajero o (1) si [Longitud invï¿½lida o puntero NULL recibido o pasajero no encontrado]
 */
 int findPassengerByIdFree(ePassenger list[], int len, int *pIndex)
 {
@@ -177,11 +134,11 @@ int findPassengerByIdFree(ePassenger list[], int len, int *pIndex)
 
 /// 2.3
 /**
-* Buscar un pasajero por Id y devuelve la posición del índice en el array.
+* Buscar un pasajero por Id y devuelve la posiciï¿½n del ï¿½ndice en el array.
 * \param list Pasajero*
 * \param len int
 * \param id int
-* \return Devuelve la posición del índice del pasajero o (-1) si [Longitud inválida o puntero NULL recibido o pasajero no encontrado]
+* \return Devuelve la posiciï¿½n del ï¿½ndice del pasajero o (-1) si [Longitud invï¿½lida o puntero NULL recibido o pasajero no encontrado]
 */
 int findPassengerById(ePassenger list[], int len, int id, int* pIndex) /// 1 - error , 0 - ocupado
 {
@@ -208,7 +165,7 @@ int findPassengerById(ePassenger list[], int len, int id, int* pIndex) /// 1 - e
 * \param list Pasajero*
 * \param len int
 * \param id int
-* \return int Devuelve (-1) si Error [Longitud inválida o puntero NULL o si no puede encontrar un pasajero] - (0) si Ok
+* \return int Devuelve (-1) si Error [Longitud invï¿½lida o puntero NULL o si no puede encontrar un pasajero] - (0) si Ok
 *
 */
 int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[])
@@ -216,32 +173,39 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
     int todoOk = -1;
     int indice;
     int id;
-    char confirma;
+    char validacion;
+
     if(list != NULL && len > 0)
     {
     	listarPasajeros(list, len, sector, status);
-        printf(" |Ingrese ID: ");
-        scanf("%d", &id);
+        utn_getNumero(&id, " |> Ingrese ID: ", " |> Error, Reingrese Id\n", 1, len, 10);
         if( findPassengerById(list, len, id, &indice))
         {
             if(indice == -1)
             {
-                printf(" |No hay un pasajero con id %d\n", id);
+                printf(" |> No hay un pasajero con id %d\n", id);
             }
             else
             {
             	printPassenger(list[indice], sector, status, len);
-                printf(" |Confirma baja (s o n): ");
-                fflush(stdin);
-                scanf("%c", &confirma);
-                if(confirma != 'S' && confirma != 's')
+				printf(" |> Desea eliminar al Pasajero (s/n): ");
+				fflush(stdin);
+				scanf("%c",&validacion);
+				validacion = tolower(validacion);
+				while( validacion != 's' && validacion != 'n')
+				{
+					printf(" |> Error, Desea eliminar al Pasajero (s/n) ?: ");
+					fflush(stdin);
+					scanf("%c",&validacion);
+					validacion = tolower(validacion);
+				}
+                if(validacion != 's')
                 {
                     printf(" | * Baja cancelada por el usuario * |\n");
                 }
                 else
                 {
                     list[indice].isEmpty = 1;
-                    printf(" | * Baja realizada con exito!!! *|\n");
                     todoOk = 0;
                 }
             }
@@ -261,7 +225,7 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
 * \param list Pasajero*
 * \param len int
 * \param order int [1] indica UP - [0] indica DOWN
-* \return int Devuelve (-1) si hay error [longitud inválida o puntero NULL] - (0) si está bien
+* \return int Devuelve (-1) si hay error [longitud invï¿½lida o puntero NULL] - (0) si estï¿½ bien
 *
 */
 int sortPassengers(ePassenger* list, int len,int order)
@@ -296,7 +260,7 @@ int sortPassengers(ePassenger* list, int len,int order)
 * \param list Pasajero*
 * \param len int
 * \param order int [1] indica UP - [0] indica DOWN
-* \return int Devuelve (-1) si hay error [longitud inválida o puntero NULL] - (0) si está bien
+* \return int Devuelve (-1) si hay error [longitud invï¿½lida o puntero NULL] - (0) si estï¿½ bien
 *
 */
 int sortPassengersByCode(ePassenger* list, int len, eStatusFlight* status, int order)
@@ -311,7 +275,10 @@ int sortPassengersByCode(ePassenger* list, int len, eStatusFlight* status, int o
             {
             	if(!list[i].isEmpty && !list[j].isEmpty )
             	{
-            		if( ( (strcmp(list[i].flycode, list[j].flycode) > 0 && order) ) || ((strcmp(list[i].flycode, list[j].flycode) < 0 && !order)))
+            		if( ((strcmp(list[i].flycode, list[j].flycode) > 0 && order) ||
+            			(strcmp(list[i].flycode, list[j].flycode) < 0 && !order)) &&
+						(((list[i].statusFlight > list[j].statusFlight) && order) ||
+						((list[i].statusFlight < list[j].statusFlight) && !order)))
             		{
             			auxPassenger = list[i];
             			list[i] = list[j];
@@ -320,38 +287,6 @@ int sortPassengersByCode(ePassenger* list, int len, eStatusFlight* status, int o
             	}
             }
         }
-        todoOk = 0;
-    }
-    return todoOk;
-}
-
-int listarPasajerosByStatus(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[])
-{
-    int todoOk = -1;
-    int flag = 0;
-    if(list != NULL && len > 0)
-    {
-        system("cls");
-        printf("\n  _______________________________________________________________________________________________________\n");
-        printf(" |                                          *** PASSENGER LIST  ***                                      |\n");
-        printf(" |_______________________________________________________________________________________________________|\n");
-        printf(" |  ID |       NAME        |     LAST NAME     |   PRICE  |  FLY CODE  | TYPE PASSENGER  | STATUS FLIGHT |\n");
-        printf(" |-------------------------------------------------------------------------------------------------------|\n");
-        for(int i=0; i < len; i++)
-        {
-            if( !list[i].isEmpty && list[i].statusFlight == 1)
-            {
-            	printPassenger(list[i], sector, status, len);
-                flag++;
-            }
-        }
-        printf(" |-------------------------------------------------------------------------------------------------------|");
-        if(flag == 0)
-        {
-            printf(" | * No hay empleados en el sistema * |");
-        }
-        printf("\n\n");
-
         todoOk = 0;
     }
     return todoOk;
@@ -393,7 +328,6 @@ int listadoDeCuentas(ePassenger list[], int len, float* acumPrecio, int* cantPas
 
 		todoOk =1;
 	}
-
 	return todoOk;
 }
 
@@ -481,7 +415,7 @@ int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamS
 		} while ((isalpha(letra)) || (orden < 0 || orden >1));
 
 		sortPassengersByCode(list, len, status, orden );
-		listarPasajerosByStatus(list, len, sector, status);
+		listarPasajeros(list, len, sector, status);
 		break;
 		todoOK = 1;
 	}
@@ -503,8 +437,8 @@ int printPassenger(ePassenger l, eTypePassenger sector[], eStatusFlight status[]
     char descStatus[20];
 
     if(sector != NULL && len > 0){
-    	cargarDescripcionSector( sector, len, l.typePassenger, descSector);
-    	cargarDescripcionStatus( status, len, l.typePassenger, descStatus);
+    	cargarDescripcionType( sector, len, l.typePassenger, descSector);
+    	cargarDescripcionStatus( status, len, l.statusFlight, descStatus);
         printf(" | %-3d | %-17s | %-17s | %-8.2f | %-10s | %-15s | %-12s  |\n",
         	l.id,
 			l.name,
@@ -558,14 +492,10 @@ int modifyPassenger(ePassenger list[], int len, eTypePassenger sectores[], eStat
 	int indice;
 	int id;
 	char salir = 'n';
-	char auxName[51];
-	char auxLastName[51];
-	char auxflycode[51];
 	if(list != NULL && len > 0)
 	{
 		listarPasajeros(list, len, sectores, status);
-		printf("Ingrese id: ");
-		scanf("%d", &id);
+        utn_getNumero(&id, " |> Ingrese ID: ", " |> Error, Reingrese Id\n", 1, len, 10);
 		if( findPassengerById(list, len, id, &indice))
 		{
 			if(indice == -1)
@@ -574,95 +504,42 @@ int modifyPassenger(ePassenger list[], int len, eTypePassenger sectores[], eStat
 			}
 			else
 			{
-				printPassenger(list[indice], sectores, status, len);
 				do
 				{
-					system("pause");
+					printPassenger(list[indice], sectores, status, len);
 					switch(menuModifyPassenger()){
 					case 1:
-						printf(" |Ingrese el nombre del pasajero: ");
-						fflush(stdin);
-						gets(auxName);
-						while(strlen(auxName) >= 50)
-						{
-							printf(" |Nombre demasiado largo. Reingrese nombre: ");
-							fflush(stdin);
-							gets(auxName);
-						}
-						strcpy(list[indice].name, auxName);
-						printf(" | * Se ha modificado el nombre * |\n");
+						utn_getNombre(list[indice].name, 50, "\n |> Ingrese Nombre del pasajero: ", "\n |> Error, Reingrese Nombre", 10);
 						break;
 					case 2:
-						printf(" |Ingrese el apellido del pasajero: ");
-						fflush(stdin);
-						gets(auxLastName);
-
-						while(strlen(auxLastName) >= 50)
-						{
-							printf(" |apellido demasiado largo. Reingrese apellido: ");
-							fflush(stdin);
-							gets(auxLastName);
-						}
-
-						strcpy(list[indice].lastName, auxLastName);
-						printf(" | * Se ha modificado el Apellido  * |\n");
+						utn_getNombre(list[indice].lastName, 50, " |> Ingrese Apellido del pasajero: ", "\n |> Error, Reingrese Apellido\n", 10);
 						break;
-
 					case 3:
-						printf(" |Ingrese nuevo precio: ");
-						fflush(stdin);
-						scanf("%f", &list[indice].price);
-
-						while( list[indice].price <= 9000 || list[indice].price >= 90000)
-						{
-							printf(" |Precio invalido. Reingrese precio: ");
-							fflush(stdin);
-							scanf("%f", &list[indice].price);
-						}
-
-						printf(" | * Se ha modificado el precio * |\n");
+						utn_getFloat(&list[indice].price, " |> Ingrese precio: ", "\n |> Error, Reingrese Precio\n", 1.00, 999999.99, 10);
 						break;
 					case 4:
-						printf(" |Ingrese el fly code: ");
-						fflush(stdin);
-						gets(auxflycode);
-
-						while(strlen(auxflycode) >= 11)
-						{
-							printf(" |fly code demasiado largo. Reingrese fly code: ");
-							fflush(stdin);
-							gets(auxflycode);
-						}
-
-						strcpy(list[indice].flycode, auxflycode);
-						printf(" | * Se ha modificado el codigo de vuelo * |\n");
+						utn_getCode(list[indice].flycode, " |> Ingrese el fly code: ", "\n |> Error, Reingrese Fly Code\n", 10, 10);
 						break;
 					case 5:
-						listarSectores(sectores, tamSector);
-						printf(" |Ingrese Type passenger: ");
-						fflush(stdin);
+						listarType(sectores, tamSector);
+						printf(" | Ingrese Type passenger: ");
 						scanf("%d", &list[indice].typePassenger);
-
-						while( (list[indice].typePassenger) < 1 || (list[indice].typePassenger) > 4){
-							printf(" |type passenger invalido. Reingrese type passenger: ");
-							scanf("%d", &list[indice].typePassenger);
+						while( !validarType(sectores, tamSector, list[indice].typePassenger))
+						{
+							printf(" | Error, Reingrese ID: ");
+							scanf("%d",&list[indice].typePassenger);
 						}
-						printf(" | * Se ha modificado el tipo de pasajero * |\n");
 						break;
 					case 6:
 						listarstatus(status, tamStatus);
-						printf(" |Ingrese Status Flight: ");
-						fflush(stdin);
+						printf(" | Ingrese Status Flight: ");
 						scanf("%d", &list[indice].statusFlight);
-
-						while( (list[indice].statusFlight) < 1 || (list[indice].statusFlight) > 3){
-							printf(" |Status Flight invalido. Reingrese Status Flight: ");
-							scanf("%d", &list[indice].statusFlight);
+						while( !validarStatus(status, tamStatus, list[indice].statusFlight))
+						{
+							printf(" | Error, Reingrese ID: ");
+							scanf("%d",&list[indice].statusFlight);
 						}
-
-						printf(" | * Se ha modificado el status * |\n");
 						break;
-
 					case 7:
 						salir = 's';
 						break;
@@ -716,12 +593,12 @@ int hardcodearPasajeros(ePassenger list[], int len, int cant, int* id)
     int todoOk = -1;
     ePassenger passenger[]=
     {
-    	{0, "Juan Lorenzo", "Dellapa", 18230, "BHI9176",4,3,0},
-		{0, "Valentina Aicha", "Navarrete", 11789, "AEP7377",2,1,0},
-		{0, "Marcos Elias", "Cabrera", 85176, "AC2324",1,1,0},
-		{0, "Mauro Ezequiel", "Palazzo", 85180, "AC2124",1,1,0},
-		{0, "Roser", "Santos", 40523, "MDQ1980",3,1,0},
-		{0, "Matilde Ester", "Campo", 66920, "MDQ8281",2,1,0},
+    	{0, "Juan Lorenzo", "Dellapa", 20000, "BHI9176",4,3,0},
+		{0, "Valentina Aicha", "Navarrete", 30000, "AEP7377",2,1,0},
+		{0, "Marcos Elias", "Cabrera", 18000, "AC2324",1,2,0},
+		{0, "Mauro Ezequiel", "Palazzo", 23000, "AC2124",1,3,0},
+		{0, "Roser", "Santos", 45000, "MDQ1980",3,1,0},
+		{0, "Matilde Ester", "Campo", 40000, "MDQ8281",2,2,0},
 		{0, "Clotilde Maria", "Morales", 90000, "EZE6482",1,2,0},
 		{0, "Juan Francisco", "Bilbao", 50238, "CTC4683",3,1,0},
 		{0, "Marta Rene", "Morales", 90000, "EZE6482",2,2,0},

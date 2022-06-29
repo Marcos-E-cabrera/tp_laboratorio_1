@@ -3,29 +3,16 @@
 #include <ctype.h>
 #include "calculos.h"
 #include "menu.h"
+#include "utn.h"
 
 /* Kilometros del vuelo ingresado */
-float kilometrosDeVuelo(){
-	system("cls");
-	int kilometros; // kms
-	char letra;
-	do
+float kilometrosDeVuelo()
+{
+	float kilometros; // kms
+	if(utn_getFloat(&kilometros,"\n |> Ingrese los Kilometros del vuelo: ", "\n |> El Kilometros tiene que ser mayor a 0", 1.00, 999999.99, 2) != 0)
 	{
-		printf(" | Ingrese los kilometros del vuelo : ");
-		fflush(stdin);
-		scanf("%d", &kilometros);
-		scanf("%c", &letra);
-
-		if( isalpha(letra) ){
-			system("cls");
-			printf(" | Error, Reingrese los kilometros del vuelo\n");
-		}
-
-		if(kilometros < 1){
-			system("cls");
-			printf(" | Error, Reingrese los kilometros del vuelo\n");
-		}
-	}while(	(isalpha(letra)) || (kilometros < 1 ));
+		kilometros = 0;
+	}
     return kilometros;
 }
 
@@ -43,7 +30,7 @@ float credito(float importe){
 	float porcentaje;
 	float interes;
 	interes = importe* 0.25;
-	porcentaje = importe - interes;
+	porcentaje = importe + interes;
 	return porcentaje;
 }
 
@@ -56,7 +43,12 @@ float bitcoin(float importe){
 
 /* Precio Unitario */
 float precioUnitario(float importe, float kms){
-	return (importe/kms);
+	int todoOk = 1;
+	if(kms > 0){
+		return (importe/kms);
+		todoOk = 0;
+	}
+	return todoOk;
 }
 
 /* Diferencia de precio */

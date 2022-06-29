@@ -8,6 +8,7 @@ typedef struct{
 
 #endif /* TYPEPASSENGER_H_ */
 
-int listarSectores(eTypePassenger sectores[], int tamSectores);
-int cargarDescripcionSector(eTypePassenger sectores[], int tam, int typePassenger, char descripcion[]);
-int buscarSector(eTypePassenger sectores[], int tam, int typePassenger, int* pIndice);
+int listarType(eTypePassenger type[], int tam);
+int cargarDescripcionType(eTypePassenger type[], int tam, int typePassenger, char descripcion[]);
+int buscarType(eTypePassenger type[], int tam, int typePassenger, int* pIndice);
+int validarType(eTypePassenger type[], int tam, int id);

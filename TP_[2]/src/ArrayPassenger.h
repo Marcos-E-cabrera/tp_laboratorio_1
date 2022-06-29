@@ -33,7 +33,6 @@ int removePassenger(ePassenger list[], int len, eTypePassenger sector[], eStatus
 ///2.5
 int sortPassengers(ePassenger* list, int len,int order);
 int sortPassengersByCode(ePassenger* list, int len,eStatusFlight* status, int order);
-int listarPasajerosByStatus(ePassenger list[], int len, eTypePassenger sector[], eStatusFlight status[]);
 int listadoDeCuentas(ePassenger list[], int len, float* acumPrecio, int* cantPassengers, int* contMaximo,float* promedio);
 int subMenuInformes(ePassenger list[], int len, eTypePassenger sector[],int tamSector, eStatusFlight status[], int tamStatus);
 ///2.6

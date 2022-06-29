@@ -18,6 +18,7 @@ void menu_Passenger_Main()
     int flagGuardado = 0;
 	LinkedList* listaPasajeros = ll_newLinkedList();
 	controller_passengerId("PassengerId.bin", listaPasajeros);
+
 	do{
 		printf("\n  ______________________________________________________________________________________\n");
 		printf(" |                                * MENU DE AEROLINEAS *                                |\n");

@@ -8,8 +8,7 @@ int listarstatus(eStatusFlight status[], int tamStatus){
 int todoOk = -1;
 
     if(status != NULL && tamStatus > 0){
-        system("cls");
-        printf("\n  ______________________________\n");
+        printf("  ______________________________\n");
         printf(" |  *** STATUS FLIGHT LIST ***  |\n");
         printf(" |------------------------------|\n");
         printf(" |  ID  |      Descripcion      |\n");
@@ -50,4 +49,16 @@ int buscarStatus(eStatusFlight status[], int tam, int statusFlight, int* pIndice
 		todoOk = 1;
 	 }
    return todoOk;
+}
+
+int validarStatus(eStatusFlight status[], int tam, int id){
+    int esValido = 0;
+    int indice;
+
+    buscarStatus(status, tam, id, &indice);
+
+    if(indice != -1){
+        esValido = 1;
+    }
+    return esValido;
 }
